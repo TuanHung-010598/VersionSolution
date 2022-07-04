@@ -127,6 +127,7 @@
     <Compile Include="Client.cs" />
     <Compile Include="Service\CommunicationClass_V2010.cs" />
     <Compile Include="Service\CommunicationClass_V2019.cs" />
+    <Compile Include="Service\CommunicationWrapper.cs" />
     <Compile Include="Service\ICommunicationClass.cs" />
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>

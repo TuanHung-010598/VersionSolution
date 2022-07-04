@@ -48,6 +48,7 @@ namespace ProLock.Service
         }
         public bool WriteCard()
         {
+            MessageBox.Show("Write card success");
             return true;
         }
         public static string CharToString(char[] arr)

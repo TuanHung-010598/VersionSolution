@@ -8,25 +8,36 @@ namespace ProLock.Service
 {
     internal class CommunicationWrapper
     {
-        public void WriteCard()
+        public static void WriteCard()
         {
             // check xem đã tìm được version chính xác chưa
             if (!string.IsNullOrEmpty(ConfigurationManager.AppSettings["version"]))
             {
-                var communacation = Activator.CreateInstanceFrom(System.Reflection.Assembly.GetExecutingAssembly().GetName().Name, ConfigurationManager.AppSettings["version"]) as ICommunicationClass;
-                communacation.WriteCard();
+                foreach (Type t in System.Reflection.Assembly.GetExecutingAssembly().GetTypes().Where(type => typeof(ICommunicationClass).IsAssignableFrom(type)))
+                {
+                    if (t.Name == ConfigurationManager.AppSettings["version"])
+                    {
+                        var s = Activator.CreateInstance(t) as ICommunicationClass;
+                        s.WriteCard();
+                        break;
+                    }
+                }
             }
             else
             {
                 // tìm version đúng của khách sạn
                 foreach (Type t in System.Reflection.Assembly.GetExecutingAssembly().GetTypes().Where(type => typeof(ICommunicationClass).IsAssignableFrom(type)))
                 {
-                    var s = Activator.CreateInstance(t) as ICommunicationClass;
-                    s.ProGetDLLVersion();
-                    if (s.checkVersionIsCorrect("ProUsb-20190530"))
+                    if (t.Name != typeof(ICommunicationClass).Name)
                     {
-                        ConfigurationManager.AppSettings["version"] = t.Name;
-                        s.WriteCard();
+                        var s = Activator.CreateInstance(t) as ICommunicationClass;
+                        s.ProGetDLLVersion();
+                        if (s.checkVersionIsCorrect("ProUsb-20190530"))
+                        {
+                            ConfigurationManager.AppSettings["version"] = t.Name;
+                            s.WriteCard();
+                            break;
+                        }
                     }
                 }
 

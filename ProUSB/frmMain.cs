@@ -173,7 +173,7 @@ namespace ProLock
 
         private void button5_Click(object sender, EventArgs e)
         {
-
+            CommunicationWrapper.WriteCard();
         }
     }
 
