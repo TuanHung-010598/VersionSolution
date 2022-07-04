@@ -170,6 +170,11 @@ namespace ProLock
 
             MessageBox.Show($"No class is correct");
         }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 
     public class CardInfo2

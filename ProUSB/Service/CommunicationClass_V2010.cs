@@ -51,6 +51,11 @@ namespace ProLock.Service
         {
             MessageBox.Show(_version);
         }
+
+        public bool WriteCard()
+        {
+            return true;
+        }
         public static string CharToString(char[] arr)
         {
             string str = new string(arr);

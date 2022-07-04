@@ -10,5 +10,6 @@ namespace ProLock.Service
         int ProGetDLLVersion();
         bool checkVersionIsCorrect(string version);
         void showVersion();
+        bool WriteCard();
     }
 }
